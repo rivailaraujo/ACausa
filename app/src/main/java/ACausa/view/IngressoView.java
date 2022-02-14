@@ -1,20 +1,23 @@
 package ACausa.view;
 
 import ACausa.controller.IC;
+import ACausa.domain.Rebelde;
 import ACausa.enums.Raca;
 
 import java.util.Scanner;
 
 public class IngressoView {
-
-    public void montarRebelde(){
+    IC inteligencia = new IC();
+    
+    public Rebelde montarRebelde() {
         String nome = askNome();
         int idade = askIdade();
         Raca raca = askRaca();
-        IC inteligencia = new IC();
-        inteligencia.montarFicha(nome, idade, raca);
+
+        return inteligencia.montarFicha(nome, idade, raca);
     }
-    private String askNome(){
+
+    private String askNome() {
         try {
             System.out.println("Qual seu nome?");
             Scanner input = new Scanner(System.in);
@@ -24,18 +27,18 @@ public class IngressoView {
         }
     }
 
-    private int askIdade(){
+    private int askIdade() {
         try {
             System.out.println("Qual sua idade?");
             Scanner input = new Scanner(System.in);
             return input.nextInt();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Idade Inválida, tente novamente.");
             return askIdade();
         }
     }
 
-    private Raca askRaca(){
+    private Raca askRaca() {
         System.out.println("Qual sua idade?");
         System.out.println("[1] - " + Raca.GREE);
         System.out.println("[2] - " + Raca.RAKATA);

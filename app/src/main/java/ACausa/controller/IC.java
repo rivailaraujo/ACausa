@@ -8,14 +8,20 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 public class IC {
-    public void montarFicha(String nome, int idade, Raca raca){
+
+    public Rebelde montarFicha(String nome, int idade, Raca raca) {
         Rebelde newRebelde = Rebelde.builder().nome(nome).idade(idade).raca(raca).build();
-        this.decidirCandidatura(newRebelde);
+        if (this.decidirCandidatura(newRebelde)) {
+            return newRebelde;
+        }else {
+            return null;
+        }
     }
 
-    private void decidirCandidatura(Rebelde newRebelde){
+    private boolean decidirCandidatura(Rebelde newRebelde) {
         Random rand = new Random();
-        int max = 1; int min = 0;
+        int max = 1;
+        int min = 0;
         int randomNum = rand.nextInt((max - min) + 1) + min;
         System.out.println(randomNum);
 
@@ -23,11 +29,14 @@ public class IC {
             try {
                 newRebelde.imprimirCardapio();
                 System.out.println("IC diz: 'Candidatura Aceita!'");
+                return true;
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 e.printStackTrace();
+                return false;
             }
-        }else {
+        } else {
             System.out.println("IC diz: 'Candidatura não Aceita!'");
+            return false;
         }
     }
 }
